@@ -1,0 +1,66 @@
+{% extends "course/index.html" %}
+{% load static %}
+
+{% block faq %}{% endblock faq %}
+{% block vc %}class="active"{% endblock vc %}
+
+<script>
+var search = location.search.substring(1);
+alert(search[i]);
+</script>
+
+{% block content %}
+
+<div class="main">
+    <div class="block">
+        <div class="srch">
+            <img src="{% static 'course/images/Rectangle 96.svg' %}">
+            <form method="post">
+                {% csrf_token %}
+                <input value="{{search}}" placeholder="Поиск" type="text" name="search" id="id_search">
+            </form>
+        </div>
+    </div>
+    {% if prof != 0 and filter != 'Курс'%}
+        <div class="block">
+            <p style="font-size: 36px; line-height: 44px;">Профессии</p>
+        </div>
+        <div class="block" style="margin-top: 1em; flex-wrap: wrap !important; padding: 0 0;">
+            {% for line in products %}
+                {% if line.2 == 'Профессия' %}
+                    <a class="course" href="/course/courses/{{ line.0 }}" style="background: {{ line.8 }}">
+                        <div class="course_text">
+                            <p style="margin-bottom: 1.5em;">{{ line.2 }}</p>
+                            <p style="font-size: 20px; line-height: 24px;">{{line.1}}</p>
+                            <p style="margin-top: 4em;">{{line.5}}</p>
+                        </div>
+                        <img class="mini_image" src="{{ line.6 }}" alt="connect" style="max-height:300px">
+                    </a>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
+    {% if curs != 0 and filter != 'Профессия'%}
+    <div class="block" {% if prof != 0 and filter != 'Курс'%} style="margin-top: 5em;" {% endif %}>
+        <p style="margin: 0 0 .5em 0; font-size: 36px; line-height: 44px;">Курсы</p>
+    </div>
+    <div class="block" style="flex-wrap: wrap !important;">
+        {% for line in products %}
+            {% if line.2 == 'Курс' %}
+                <a class="course" href="/course/courses/{{ line.0 }}" style="background: {{ line.8 }} ">
+                    <div class="course_text">
+                        <p style="margin-bottom: 1.5em;">{{ line.2 }}</p>
+                        <p style="font-size: 20px; line-height: 24px;">{{line.1}}</p>
+                        <p style="margin-top: 4em;">{{line.5}}</p>
+                    </div>
+                    <img class="mini_image" src="{{ line.6 }}" alt="connect" style="max-height:300px">
+                </a>
+            {% endif %}
+        {% endfor %}
+        
+    </div>
+    {% endif %}
+    
+</div>
+    
+{% endblock content %}

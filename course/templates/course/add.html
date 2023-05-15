@@ -1,0 +1,76 @@
+{% extends "course/index.html" %}
+{% load static %}
+
+{% block faq %}{% endblock faq %}
+
+{% block content %}
+
+<div class="main">
+    
+    <div class="block" style="justify-content: space-around;">
+        <form class="add_form" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% if path == 'reg' %}
+                <p>Создайте свой профиль</p>
+                <input placeholder="Имя" type="text" name="name" maxlength="20" required="" id="id_name">
+                <input placeholder="Фамилия" type="text" name="surname" maxlength="20" required="" id="id_surname">
+            {% elif path == 'login' %}
+                <p style="margin-bottom: 1em;">Войдите в свой профиль</p>
+            {% endif %}
+            {% if path == 'reg' or path == 'login' %}
+                <input style="margin-bottom: 1em;" placeholder="Электронная почта" type="email" name="email" maxlength="20" required="" id="id_email">
+            {% endif %}
+            {% if path == 'reg' %}
+                <label for="id_password">Придумайте пароль</label>
+            {% endif %}
+            {% if path == 'reg' or path == 'login' %}
+                <input placeholder="Пароль" type="password" name="password" maxlength="20" required="" id="id_password">
+            {% elif path == 'cabinet' %}
+                {{ form }}
+            {% elif path == 'users' %}
+                <label for="id_email">Email:</label>
+                <input value="{{ arr.email }}" type="email" name="email" maxlength="20" required="" id="id_email">
+                <label for="id_name">Имя:</label>
+                <input value="{{ arr.name }}" type="text" name="name" maxlength="20" required="" id="id_name">
+                <label for="id_surname">Фамилия:</label>
+                <input value="{{ arr.surname }}" type="text" name="surname" maxlength="20" required="" id="id_surname">
+                <label for="id_password">Пароль:</label>
+                <input value="{{ arr.password }}" type="password" name="password" maxlength="20" required="" id="id_password">
+                <label for="id_group_owner">Создатель курсов (0 или 1):</label>
+                <input value="{{ arr.group_owner }}" type="number" name="group_owner" required="" id="id_group_owner">
+                <label for="id_admin">Администратор (0 или 1):</label>
+                <input value="{{ arr.admin }}" type="number" name="admin" required="" id="id_admin">
+            {% else %}
+                {{ form }}
+            {% endif %}
+            {% if path == 'login' %}
+                <div class="zab">
+                    <a style="margin-top: .4em;" href="/course/login">Забыли пароль</a>
+                    <p style="margin-top: .4em;">?</p>
+                </div>
+            {% endif %}
+            <button type="submit">{{ btn_name }}</button>
+            <div class="redir">
+                {% if path == 'reg' %}
+                    <p>У вас уже есть профиль?</p>
+                    <a href="/course/login">Зайдите</a>
+                {% elif path == 'login' %}
+                    <p style="margin-top: 1em;">Еще нет профиля?</p>
+                    <a style="margin-top: 1em;" href="/course/register">Зарегистригуйтесь</a>
+                {% endif %}
+            </div>
+        </form>
+        {% if path == 'reg' or path == 'login'%}
+            <img src="{% static 'course/images/Rectangle 121.svg' %}">
+        {% endif %}
+    </div>
+    {% if path == 'reg'%}
+    {% elif path == 'login' %}
+    {% else %}
+        <div class="block" style="justify-content: center;">
+            <a class="back" href="/course/{{path}}">Назад</a>
+        </div>
+    {% endif %}
+</div>
+
+{% endblock content %}

@@ -1,0 +1,131 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>BrainBoost</title>
+        <link type="Image/x-icon" href="{% static 'course/images/Rectangle 75.svg' %}" rel="icon">
+        <link rel="stylesheet" href="{% static 'course/style.css' %}">
+        <script type="text/javascript" src={% static "course/scripts/script.js" %} defer></script>
+    </head>
+
+    <body>
+        {% block navigation %}
+        <nav class="navigation">
+            <ul>
+                <li class="logo">
+                    <a href="/course">BrainBoost</a>
+                    <img src="{% static 'course/images/Rectangle 75.svg' %}">
+                </li>
+                <li class="nav_group">
+                    <a href="/course/view_courses" {% block vc %}{% endblock vc %}>Все курсы</a>
+                    {% if user.is_authenticated %}
+                        <a href="/course/cabinet" {% block lc %}{% endblock lc %}>Личный кабинет</a>
+                    {% endif %}
+                    {% block faq %}{% endblock faq %}
+                </li>
+                {% if user.is_authenticated %}
+                <li class="exit">
+                    <a href="/course/logout">Выход</a>
+                </li>
+                {% else %}
+                <li class="reg">
+                    <a id="reg_text" href="/course/login">вход/регистрация</a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+        {% endblock navigation %}
+
+        {% block content %}
+
+        <div class="main">
+            <div class="block">
+                <div class="rect">
+                    <p>Станьте востребованным специалистом</p>
+                    <div class="btn-cnt">
+                        <a onclick="location.href='view_courses?search=Программирование'" href="#">Программирование</a>
+                        <a onclick="location.href='view_courses?search=Дизайн'" href="#">Дизайн</a>
+                        <a onclick="location.href='view_courses?search=Бизнес'" href="#">Бизнес</a>
+                        <a onclick="location.href='view_courses?search=Маркетплейсы'" href="#">Маркетплейсы</a>
+                        <a onclick="location.href='view_courses?search=Французский язык'" href="#">Французский язык</a>
+                        <a href="view_courses">Все курсы</a>
+                    </div>
+                </div>
+                <img src="{% static 'course/images/Rectangle 75.svg' %}">
+            </div>
+            <div class="block" style="margin-top: 6em;">
+                <div class="text_main">
+                    Почему выбирают платформу BrainBoost
+                </div>
+                <div class="sub_text">
+                    <p style="width: 36%;">
+                        №1<br><br>
+                        В обучении 2023 по версии ФГБМИ
+                    </p>
+                    <p style="width: 45%;">
+                        91% <br><br>
+                        Выпускников отмечают, что BrainBoost помог им в достижении целей
+                    </p>
+                    <p style="width: 53%;">
+                        24/7<br><br>
+                        Учитесь с комфортным графиком, не выходя из дома
+                    </p>
+                </div>
+            </div>
+            <div class="block" style="margin-top: 5em;">
+                <div class="text_main">Курсы под любые цели</div>
+            </div>
+            <div class="block" style="margin-top: 4em;">
+                <div class="rect_1">
+                    <p>Получить восстребованную профессию<p>
+                    <div class="right">
+                        <img src="{% static 'course/images/Rectangle 83.svg' %}"><br>
+                        <a onclick="location.href='view_courses?filter=Профессия'" href="#">Перейти к выбору профессий</a>
+                    </div>
+                </div>
+                <div class="rect_2">
+                    <a onclick="location.href='view_courses?filter=Курс'" href="#">Перейти к выбору курсов</a><br>
+                        <img src="{% static 'course/images/Rectangle 87.svg' %}">
+                    <div class="right">
+                    <br><p>Усовершенствовать свои навыки</p>
+                    </div>
+                </div>
+            </div>
+            <div class="block" style="margin-top: 6em;">
+                <div class="rect_3">
+                    <img src="{% static 'course/images/Rectangle 90.svg' %}">
+                    <div class="form">
+                        <p>Поможем вам с выбором</p>
+                        <input placeholder="имя">
+                        <input placeholder="телефон">
+                        <input placeholder="электронная почта">
+                        <div class="form_btn">
+                            <a href="">Отправить</a>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% endblock content %}
+        {% block footer %}
+        <footer>
+            <div class="logo">
+                <a href="/course">BrainBoost</a>
+                <img src="{% static 'course/images/Rectangle 75.svg' %}">
+            </div>
+            <div class="politic">
+                <a href="/course">Политика конфиденциальности</a>
+                <a href="/course">Договор оферты</a>
+            </div>
+            <div class="call">
+                <p>+7(999) 999-99-99</p>
+                <a class="calling" href="/course">заказать обратный звонок</a>
+            </div>
+            
+        </footer>
+        {% endblock footer %}
+    </body>
+</html>

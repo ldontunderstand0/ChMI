@@ -1,0 +1,222 @@
+{% extends "course/index.html" %}
+{% load static %}
+
+{% block faq %}
+<a id="course_faq" href="#">FAQ</a>
+{% endblock faq %}
+
+{% block content %}
+
+<div class="main">
+    <div class="block">
+        <div class="intro_text">
+            <p>Изучайте <span class="lower">{{ course.discipline }}</span> в удобное для вас время</p>
+            <ul>
+                <li>учеба из любой точки мира</li>
+                <li>индивидуальные занятия</li>
+            </ul>
+            <span>Оставьте заявку и получите бесплатный  урок</span>
+            <a href="/course/enter/{{course.id}}">ОСТАВИТЬ ЗАЯВКУ</a>
+        </div>
+        <img class="main_image" src="{{ course.image.url }}" alt="connect" style="max-height:300px">
+    </div>
+</div>
+
+<div class="main_block" style="padding-bottom: 5em;">
+    <div class="block">
+        <p class="center_text">Сталкивались с подобным?</p>
+    </div>
+    <div class="img_text_main">
+        <div class="img_text">
+            <img src="{% static 'course/images/Rectangle 6.svg' %}">
+            <p>Загруженный график</p>
+            <p>Расписание школы не соответсвует вашему</p>
+        </div>
+        <div class="img_text">
+            <img src="{% static 'course/images/Rectangle 7.svg' %}">
+            <p>Удаленность от дома</p>
+            <p>Нет возможности ездить на курсы из-за учёбы или работы</p>
+        </div>
+        <div class="img_text">
+            <img src="{% static 'course/images/Rectangle 8.svg' %}">
+            <p>Дорогостоящее обучение</p>
+            <p>Стоимость репетитора или школы от 2 000 рублей за занятие </p>
+        </div>
+    </div>
+</div>
+
+<div class="main" style="padding-bottom: 3em;">
+    <div class="block">
+        <p class="center_text">Мы знаем, как вам помочь</p>
+    </div>
+    <div class="img_text_main">
+        <div class="img_text">
+            <img src="{% static 'course/images/Rectangle 12.svg' %}">
+            <p>Комфортное расписание</p>
+            <p>Онлайн-уроки в любое удобное время на нашей платформе</p>
+        </div>
+        <div class="img_text">
+            <img src="{% static 'course/images/Rectangle 13.svg' %}">
+            <p>Онлайн-формат</p>
+            <p>Занятия прямо из дома или любой другой точки мира</p>
+        </div>
+        <div class="img_text">
+            <img src="{% static 'course/images/Rectangle 14.svg' %}">
+            <p>Приятные цены</p>
+            <p>Стоимость до <b>5 900</b> рублей за МЕСЯЦ занятий</p>
+        </div>
+    </div>
+</div>
+
+<div class="main_block">
+
+    <div class="block">
+        <p class="center_text">Обучение у нас может позволить себе каждый</p>
+    </div>
+
+    <div class="enter">
+
+        <div class="enter_elem">
+            <div class="enter_elem_elem">
+                <div class="during">
+                    <p class="number">1</p>
+                    <p class="howlong">месяц занятий</p>
+                </div>
+                <p style="margin-bottom: 1.8em;">Что входит в курс</p>
+                <div class="main_prems">
+                    <p class="prems">-</p>
+                    <p class="prems">9 индивидуальных занятий с преподавателем</p>
+                </div>
+                <div class="main_prems">
+                    <p class="prems">-</p>
+                    <p class="prems">проверка домашних заданий</p>
+                </div>
+            </div>
+            <div class="enter_btn_main">
+                <p class="price">5900 руб.</p>
+                {% if user.is_authenticated %}
+                    <a class="enter_btn" href="/course/enter/{{course.id}}">Записаться</a>
+                {% else %}
+                    <a class="enter_btn" href="/course/register">Записаться</a>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="enter_elem">
+            <div class="enter_elem_elem">
+                <div class="during">
+                    <p class="number">6</p>
+                    <p class="howlong">месяцев занятий</p>
+                </div>
+                <p style="margin-bottom: 1.8em;">Что входит в курс</p>
+                <div class="main_prems">
+                    <p class="prems">-</p>
+                    <p class="prems">35 индивидуальных занятий с преподавателем</p>
+                </div>
+                <div class="main_prems">
+                    <p class="prems">-</p>
+                    <p class="prems">консультация</p>
+                </div>
+                <div class="main_prems">
+                    <p class="prems">-</p>
+                    <p class="prems">проверка домашних заданий</p>
+                </div>
+            </div>
+            <div class="enter_btn_main">
+                <p class="price">28900 руб.</p>
+                {% if user.is_authenticated %}
+                    <a class="enter_btn" href="/course/enter/{{course.id}}">Записаться</a>
+                {% else %}
+                    <a class="enter_btn" href="/course/register">Записаться</a>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="enter_elem">
+            <div class="enter_elem_elem">
+                <div class="during">
+                    <p class="number">1</p>
+                    <p class="howlong">занятие с носителем</p>
+                </div>
+                <p style="margin-bottom: 1.8em;">Что входит в курс</p>
+                <div class="main_prems">
+                    <p class="prems">-</p>
+                    <p class="prems">улучшение навыков</p>
+                </div>
+                <div class="main_prems">
+                    <p class="prems">-</p>
+                    <p class="prems">консультация</p>
+                </div>
+                <div class="main_prems">
+                    <p class="prems">-</p>
+                    <p class="prems">изучение всех тонкостей</p>
+                </div>
+            </div>
+            <div class="enter_btn_main">
+                <p class="solo_price">Цена за одно занятие</p>
+                <p class="price">1200 руб.</p>
+                {% if user.is_authenticated %}
+                    <a class="enter_btn" href="/course/enter/{{course.id}}">Записаться</a>
+                {% else %}
+                    <a class="enter_btn" href="/course/register">Записаться</a>
+                {% endif %}
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<div class="main">
+    <div class="block">
+        <div class="another">
+            <p>Еще не определились?</p>
+            <p>Оставьте заявку и получите 2 онлайн-урока бесплатно</p>
+            <a href="/course/enter/{{course.id}}">ОСТАВИТЬ ЗАЯВКУ</a>
+        </div>
+    </div>
+    <div class="block" style="flex-direction: column;" id="faq_end">
+        <div class="faq_text">
+            <p>Получите ответ на свой вопрос</p>
+            <div class="faq">
+                <p class="f">F</p>
+                <p class="a">A</p>
+                <p class="q">Q</p>
+            </div>
+        </div>
+        <div class="faq_quiz">
+            <div class="quiz_elem">
+                <a onclick="show('1');">Есть ли пробное занятие?</a>
+            </div>
+            <div class="quiz_elem" id="hide1" style="display: none;">
+                <a class="answ" onclick="hide('1');">Да, мы предоставляем пробное занятие для знакомства с нашим курсом.</a>
+            </div>
+        </div>
+        <div class="faq_quiz">
+            <div class="quiz_elem">
+                <a onclick="show('2');">Я могу выбрать расписание?</a>
+            </div>
+            <div class="quiz_elem" id="hide2" style="display: none;">
+                <a class="answ" onclick="hide('2');">Да, расписание вы определяете сами. У нас есть утренние, дневные и вечерние занятия.</a>
+            </div>
+        </div>
+        <div class="faq_quiz">
+            <div class="quiz_elem">
+                <a onclick="show('3');">Где и как проходят занятия?</a>
+            </div>
+            <div class="quiz_elem" id="hide3" style="display: none;">
+                <a class="answ" onclick="hide('3');">Занятия проходят на нашей личной платформе или в мобильном приложении.</a>
+            </div>
+        </div>
+        <div class="faq_quiz">
+            <div class="quiz_elem">
+                <a onclick="show('4');">Кто проверяет задания?</a>
+            </div>
+            <div class="quiz_elem" id="hide4" style="display: none;">
+                <a class="answ" onclick="hide('4');">Проверяет выполненные задания преподаватель, у которого вы учитесь.</a>
+            </div>
+        </div>
+    </div>
+</div>
+    
+
+{% endblock content %}

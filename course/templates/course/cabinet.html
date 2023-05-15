@@ -1,0 +1,99 @@
+{% extends "course/index.html" %}
+{% load static %}
+
+{% block faq %}{% endblock faq %}
+{% block lc %}class="active"{% endblock lc %}
+
+{% block content %}
+
+<div class="main">
+    {% if user.admin %}
+    <div class="block">
+        <p><a class="mng" href="users">Управление пользователями</a></p>
+    </div>
+    {% endif %}
+
+    <div class="block">
+        <p style="font-size: 32px; line-height: 39px;">
+            {% if user.group_owner %}
+                Мои курсы
+            {% else %}
+                Мое обучение
+            {% endif %}
+        </p>
+    </div>
+    <div class="block" style="margin-top: 2em; flex-wrap: wrap;">
+        {% for line in products %}
+            <div class="my_course" style="margin-bottom: 2em; background: {{line.8}}">
+                <div class="my_course_text">
+                    <p style="font-size: 16px;">{{line.2}}</p>
+                    <p>{{line.1}}</p>
+                    {% if user.group_owner %}
+                    <div class="my_course_btns">
+                        <a href="/course/courses/update/{{ line.0 }}">Удалить</a>
+                        <a href="/course/courses/update/{{ line.0 }}">Редактировать</a>
+                        <a href="/course/lessions/{{ line.0 }}">К занятиям</a>
+                    </div>
+                    {% else %}
+                    <div class="my_course_btns">
+                        <a href="/course/lessions/{{ line.0 }}">Продолжить</a>
+                    </div>
+                    {% endif %}
+                </div>
+                <img class="mini_image" src="{{ line.6 }}" alt="connect" style="max-height:300px">
+            </div>
+
+            <!-- <div class="main_stats" style="margin-bottom: 2em;">
+                <div class="stats">
+                    <div class="conv">
+                        <p style="margin-bottom: 1.6em;">
+                        {% if user.group_owner %}
+                            конверсия курса</p>
+                            <p>**%</p>
+                        {% else %}
+                            дней без перерыва</p>
+                            <p>**</p>
+                        {% endif %}
+                    </div>
+                    <div class="conv">
+                        {% if user.group_owner %}
+                            <p>количество учащихся</p>
+                            <p>***</p>
+                        {% else %}
+                            <p style="margin-right: 0.8em;">дней максимум без перерыва</p>
+                            <p>***</p>
+                        {% endif %}
+                        
+                    </div>
+                </div>
+                <div class="stats">
+                    <div class="conv">
+                        <p>Активность за последние 7 дней</p>
+                    </div>
+                    <div class="conv">
+                        <p style="margin-top: 1.6em;">задач решено: **</p>
+                        <img style="margin-top: .4em;" src="{% static 'course/images/Rectangle 129.svg' %}">
+                    </div>
+                </div>
+            </div> -->
+            
+        {% endfor %}
+    </div>
+
+    <div class="block" style="margin-top: 0.5em; flex-wrap: wrap;">
+        {% if user.group_owner %}
+        <a class="course" href="/course/courses/create" style="background: #F6F5F5;">
+            <div class="course_text">
+                    <p style="font-size: 32px; line-height: 39px; font-weight: 700; margin: .3em 0 0 .5em;">Новый курс</p>
+        {% else %}
+        <a class="course" href="/course/view_courses" style="background: #F6F5F5;">
+            <div class="course_text">
+                <p style="font-size: 24px; line-height: 29px; font-weight: 700; margin: 1.6em 0 0 1em;">К списку курсов</p>
+        {% endif %}
+            </div>
+        </a>
+    </div>
+
+</div>
+
+{% endblock content %}

@@ -1,0 +1,109 @@
+{% extends "course/index.html" %}
+{% load static %}
+
+{% block faq %}{% endblock faq %}
+
+{% block content %}
+
+<div class="main">
+    <div class="block">
+        <p class="zan">Занятия</p>
+    </div>
+
+    <div class="block">
+        <div class="lessions">
+        {% for line in lessions %}
+                <form>
+                    <div class="text_lessions">
+                        <p>Занятие {{ line.num }}</p>
+                        <p>{{line.title}}</p>
+                    </div>
+                    {% if user.group_owner %}
+                    <div class="btn_les">
+                        <a id="upd" href="/course/lessions/update/{{ line.id }}">Изменить</a>
+                        <a id="del" href="/course/lessions/delete/{{ line.id }}">Удалить</a>
+                    </div>
+                    {% else %}
+                    <div class="btn_les">
+                        <a href="{{ line.file.url }}">Скачать файл задания</a>
+                        <a href="/course/answer/{{ line.id }}">Прикрепить ответ</a>
+                    </div>
+                    {% endif %}
+                </form>
+
+                {% if user.group_owner %}
+                    {% for ans, name in answers %}
+                        {% if ans.lession_id == line.id %}
+                            <form style="margin-bottom: 4em;">
+                                <div class="text_lessions">
+                                    <p>Ответ от: {{ name.name }} {{ name.surname }}</p>
+                                </div>
+                                <a href="{{ ans.file.url }}">{{ ans.file }}</a>
+                                <div class="btn_les">
+                                    {% if ans.complete == -1 %}
+                                        <a href="/course/yes_no/1/{{ ans.id }}">Верно</a>
+                                        <a href="/course/yes_no/0/{{ ans.id }}">Неверно</a>
+                                    {% else %}
+                                        <a href="/course/yes_no/-1/{{ ans.id }}">Изменить оценку</a>
+                                    {% endif %}
+                                </div>
+                            </form>
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    <form style="margin-bottom: 4em;">
+                        <div class="text_lessions">
+                            <p>Ваш ответ</p>
+                        </div>
+                        {% for ans in answers %}
+                            {% if ans.lession_id == line.id %}
+                                <a href="{{ ans.file.url }}">{{ ans.file }}</a>
+                                {% if ans.complete == -1 %}
+                                    <p>Ожидает проверки</p>
+                                    <div class="btn_les">
+                                        <a href="/course/answer/{{ line.id }}">Изменить ответ</a>
+                                        <a id="del" href="/course/answer/delete/{{ line.id }}">Удалить</a>
+                                    </div>
+                                {% elif ans.complete == 0 %}
+                                    <p style="color: darkred;">Неверно</p>
+                                    <div class="btn_les">
+                                        <a href="/course/answer/{{ line.id }}">Изменить ответ</a>
+                                        <a id="del" href="/course/answer/delete/{{ line.id }}">Удалить</a>
+                                    </div>
+                                {% else %}
+                                    <p style="color: green;">Верно</p>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                        
+                    </form>
+                {% endif %}
+        {% endfor %}
+        </div>
+    </div>
+
+    {% if user.group_owner %}
+        <div class="block">
+            <div class="add_lession" id="new">
+                <form method = "post", enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <p>Занятие {{ les_num }}</p>
+                    <input placeholder="Название занятия" type="text" name="title" maxlength="41" required="" id="id_title">
+                    <input type="file" name="file" id="id_file">
+                    <button type="submit">Подтвердить</button>
+                </form>
+            </div>
+        </div>
+        <div class="block" id="add">
+            <button class="add_rem" onclick="add_new();">Добавить занятие</button>
+        </div>
+        <div class="block" id="rem">
+            <button class="add_rem" onclick="add_rem();">Отмена</button>
+        </div>
+    {% endif %}
+</div>
+
+{% endblock content %}
+
+{% block footer %}
+{% endblock footer %}
